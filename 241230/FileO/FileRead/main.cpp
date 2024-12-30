@@ -21,6 +21,7 @@ int main()
 			{
 				break;
 			}*/
+
 			fgets(buffer, 256, file);
 			// Ãâ·Â.
 			std::cout << buffer;
