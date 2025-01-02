@@ -1,0 +1,6 @@
+게임 프로그래밍 실습(콘솔 엔진)
+- 게임 루프(GameLoop)
+- 프레임(Frame)
+- 프레임 시간(DeltaTime/DeltaSeconds)
+- DLL(Dynamic Linking Linrary)
+ - __des

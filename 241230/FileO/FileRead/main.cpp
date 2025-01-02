@@ -6,7 +6,7 @@ int main()
 	char buffer[256];
 
 	// 파일 스트림 객체 선언.
-	FILE* file ;
+	FILE* file = nullptr ;
 
 	// 파일 열기.
 	fopen_s(&file, "Test.txt", "rt");
