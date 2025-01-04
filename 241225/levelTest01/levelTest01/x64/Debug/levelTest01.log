@@ -1,3 +1,0 @@
-﻿  main.cpp
-C:\jiryeongWorkspace\cppWorkspace\levelTest01\levelTest01\main.cpp(24,13): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  levelTest01.vcxproj -> C:\jiryeongWorkspace\cppWorkspace\levelTest01\x64\Debug\levelTest01.exe
