@@ -5,6 +5,9 @@
 #include "Engine/Engine.h"
 #include <Windows.h>
 #include <Iostream>
+
+#include "Core.h"
+
 TestLevel::TestLevel()
 {
 	// 테스트로 액터 추가.
