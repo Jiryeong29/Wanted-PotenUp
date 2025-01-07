@@ -5,6 +5,8 @@
 class ENGINE_API Actor : public RTTI
 {
 	// RTTI 선언.
+	// 런타임에 빠르게 타입을 확인하기 위한 작업
+	// dynamic_cast 연산자를 활용해야 하는 데 성능ㅇ르 위해 커스텀 버전 확인
 	RTTI_DECLARATIONS(Actor, RTTI)
 public:
 	Actor();
