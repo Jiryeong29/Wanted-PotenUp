@@ -1,17 +1,23 @@
 #pragma once
 
 #include "Core.h"
-
-// 입력 처리를 위한 구조체
+#include "Math/Vector2.h"
+// 입력 처리를 위한 구조체.
 struct KeyState
 {
-	// 현재 프레임에 키가 눌렸는지 확인
+	// 현재 프레임에 키가 눌렸는지 확인.
 	bool isKeyDown = false;
 
-	// 이전 프레임에 키가 눌렸었는지 확인
+	// 이전 프레임에 키가 눌렸었는지 확인.
 	bool wasKeyDown = false;
 };
-
+// 커서의 종류를 설정할 때 사용할 열거형.
+enum class CursorType
+{
+	NoCursor,
+	SolidCursor,
+	NormalCursor
+};
 class Level;
 
 // 엔진 클래스
@@ -27,6 +33,14 @@ public:
 	// 레벨 추가 함수
 	void LoadLevel(Level* newLevel);
 
+	// 화면 좌표 관련 함수.
+	void SetCursorType(CursorType cursorType);
+	void SetCursorPosition(const /*class*/ Vector2& position);
+	void SetCursorPosition(int x, int y);
+
+	// 타겟 프레임 속도 설정 함수.
+	void SetTargetFrameRate(float targetFrameRate);
+
 	// 입력 관련 함수
 	bool GetKey(int key);
 	bool GetKeyDown(int key);
@@ -35,7 +49,7 @@ public:
 	// 엔진 종료 함수
 	void QuitGame();
 
-	// 싱글톤 객체 접근 함수
+	// 싱글톤 객체 접근 함수.
 	static Engine& Get();
 
 protected:
@@ -43,11 +57,16 @@ protected:
 	void Update(float deltaTime);   // Tick();
 	void Draw();               // Render();
 
-	// 이전 키 상태를 저장하는 함수
+	// 이전 키 상태를 저장하는 함수.
 	void SavePreviousKeyStates();
 
 protected:
-	// 종료할 때 설정할 변수
+	// 타겟 프레임 변수.
+	float targetFrameRate = 60.0f;
+
+	// 한 프레임 시간 값 (단위:초).
+	float targetOneFrameTime = 0.0f;
+	// 종료할 때 설정할 변수.
 	bool quit;
 
 	// 키 상태를 저장하는 배열
