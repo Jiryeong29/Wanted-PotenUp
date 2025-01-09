@@ -40,7 +40,19 @@ public:
         data[size] = std::move(value);
         size++;
     }
+    void Erase(int index)
+    {
+        if (index < 0 || index >= size)
+        {
+            __debugbreak();
+        }
 
+        for (int ix = index; ix < size - 1;++ix)
+        {
+            data[ix] = std::move(data[ix + 1]);
+        }
+        --size;
+    }
     int Size() const
     {
         return size;

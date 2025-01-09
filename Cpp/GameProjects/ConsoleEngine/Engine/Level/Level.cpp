@@ -31,28 +31,40 @@ void Level::AddActor(Actor* newActor)
     actors.PushBack(newActor);
 }
 
+void Level::DestroyActor()
+{
+    // 액터 순회 후 삭제 요청된 액터를 처리.
+    for (int ix = 0; ix < actors.Size(); ++ix)
+    {
+        if (actors[ix]->isExpired)
+        {
+            delete actors[ix];
+            actors[ix] = nullptr;
+            actors.Erase(ix);
+        }
+    }
+}
+
 void Level::Update(float deltaTime)
 {
-    //레벨에 포함된 액터를 순회하면서 Update 함수 호출
-    /*for (int ix = 0; ix < actors.Size();++ix)
-    {
-        actors[ix]->Update(deltaTime);
-    }*/
     for ( Actor* actor : actors)
     {
+        if (!actor->isActive || actor->isExpired)
+        {
+            continue;
+        }
         actor->Update(deltaTime);
     }
 }
 
 void Level::Draw()
 {
-    //레벨에 포함된 액터를 순회하면서 Draw 함수 호출
-    /*for (int ix = 0; ix < actors.Size();++ix)
-    {
-        actors[ix]->Draw();
-    }*/
     for (Actor* actor : actors)
     {
+        if (!actor->isActive || actor->isExpired)
+        {
+            continue;
+        }
         actor->Draw();
     }
 }
