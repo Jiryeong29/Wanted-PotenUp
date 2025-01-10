@@ -22,7 +22,7 @@ enum class CursorType
 };
 
 class Level;
-
+class Actor;
 // 엔진 클래스
 class ENGINE_API Engine
 {

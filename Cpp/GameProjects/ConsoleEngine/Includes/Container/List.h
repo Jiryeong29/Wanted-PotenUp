@@ -7,8 +7,11 @@ class List
 {
 public:
     List()
+        : capacity(2)
     {
-        ReAllocate(2);
+        //ReAllocate(2);
+        data = new T[capacity];
+        memset(data, 0, sizeof(T) * capacity);
     }
 
     ~List()
@@ -40,7 +43,19 @@ public:
         data[size] = std::move(value);
         size++;
     }
+    void Erase(int index)
+    {
+        if (index < 0 || index >= size)
+        {
+            __debugbreak();
+        }
 
+        for (int ix = index; ix < size - 1;++ix)
+        {
+            data[ix] = std::move(data[ix + 1]);
+        }
+        --size;
+    }
     int Size() const
     {
         return size;

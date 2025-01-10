@@ -38,7 +38,7 @@ void Log(const char* format, T&&... args)
 {
 	char buffer[255];
 	snprintf(buffer, 255, format, args ...);
-	std::cout << buffer << "\n";
+	std::cout << buffer ;
 }
 
 #define VK_LBUTTON        0x01

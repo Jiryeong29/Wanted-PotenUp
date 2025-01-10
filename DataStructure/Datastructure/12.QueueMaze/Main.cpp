@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Location2D.h"
-#include "Stack.h"
+#include "Queue.h"
 
 #include <Windows.h>
 
@@ -88,9 +88,12 @@ void PrintLocation(int row, int column, int delay)
         {
             if (ix == row && jx == column)
             {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
                 std::cout << "♥ ";
                 continue;
             }
+
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
             std::cout << map[ix][jx] << " ";
         }
         std::cout << '\n';
@@ -118,14 +121,14 @@ int main() {
     }
 
     // 시작점을 스택에 삽입
-    Stack<Location2D> stack;
-    stack.Push(Location2D(startRaw, startColumn));
+    Queue<Location2D> queue;
+    queue.Enqueue(Location2D(startRaw, startColumn));
 
     // 미로 탐색
-    while (!stack.IsEmpty())
+    while (!queue.IsEmpty())
     {
         Location2D current;
-        stack.Pop(current);
+        queue.Dequeue(current);
 
         int row = current.row;
         int column = current.column;
@@ -147,19 +150,19 @@ int main() {
         // 상하좌우 위치 중 이동한 위치를 스택 삽입
         if (IsValidLocation(row - 1, column) == true)
         {
-            stack.Push(Location2D(row - 1, column));
+            queue.Enqueue(Location2D(row - 1, column));
         }
         if (IsValidLocation(row + 1, column) == true)
         {
-            stack.Push(Location2D(row + 1, column));
+            queue.Enqueue(Location2D(row + 1, column));
         }
         if (IsValidLocation(row, column - 1) == true)
         {
-            stack.Push(Location2D(row, column - 1));
+            queue.Enqueue(Location2D(row, column - 1));
         }
         if (IsValidLocation(row, column + 1) == true)
         {
-            stack.Push(Location2D(row, column + 1));
+            queue.Enqueue(Location2D(row, column + 1));
         }
     }
 
