@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DonationAccount_03", "Donat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Account_01", "Account_01\Account_01.vcxproj", "{1E21A8B4-CBCE-4DCF-B1BC-E344B2AECF28}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04.FileIO", "04.FileIO\04.FileIO.vcxproj", "{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{1E21A8B4-CBCE-4DCF-B1BC-E344B2AECF28}.Release|x64.Build.0 = Release|x64
 		{1E21A8B4-CBCE-4DCF-B1BC-E344B2AECF28}.Release|x86.ActiveCfg = Release|Win32
 		{1E21A8B4-CBCE-4DCF-B1BC-E344B2AECF28}.Release|x86.Build.0 = Release|Win32
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Debug|x64.ActiveCfg = Debug|x64
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Debug|x64.Build.0 = Debug|x64
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Debug|x86.ActiveCfg = Debug|Win32
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Debug|x86.Build.0 = Debug|Win32
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Release|x64.ActiveCfg = Release|x64
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Release|x64.Build.0 = Release|x64
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Release|x86.ActiveCfg = Release|Win32
+		{5FC13060-F929-42D4-AEFA-B9F103D2DE2F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

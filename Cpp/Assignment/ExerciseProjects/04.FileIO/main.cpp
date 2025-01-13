@@ -1,4 +1,6 @@
 #include <iostream>
+
+#include <fstream>
 #include "Account.h"
 #include "Bank.h"
 enum MENU
@@ -8,13 +10,6 @@ enum MENU
 	WITHDRAW,
 	INQUIRE
 };
-enum ACCOUNT
-{
-	NORMAL = 1,
-	CREDIT,
-	DONATION
-};
-
 void createAccountMenu(Bank& bank)
 {
 	char accountMenu;
@@ -28,6 +23,8 @@ void createAccountMenu(Bank& bank)
 
 		if (accountMenu == 'q' || accountMenu == 'Q')
 		{
+			bank.putData();
+			
 			std::cout << "메인 메뉴로 돌아갑니다." << std::endl;
 			break;
 		}
@@ -35,7 +32,6 @@ void createAccountMenu(Bank& bank)
 		bank.CreateAccount(accountMenu);
 	}
 }
-
 void mainMenu(Bank& bank)
 {
 	char inputMenu;
@@ -50,10 +46,9 @@ void mainMenu(Bank& bank)
 
 
 		std::cout << "메뉴 입력 : "; std::cin >> inputMenu;
-
 		if (inputMenu == 'q' || inputMenu == 'Q')
 		{
-			std::cout << "감사합니다. 또 방문해 주세요." << std::endl;
+				std::cout << "감사합니다. 또 방문해 주세요." << std::endl;
 			break;
 		}
 
@@ -81,7 +76,6 @@ void mainMenu(Bank& bank)
 int main()
 {
 	Bank kakaobank;
-
 	mainMenu(kakaobank);
-
+	
 }
