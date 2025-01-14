@@ -18,22 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="testStatic.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="testStatic.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{aafff7e9-58a7-4cc6-a879-4253f5556165}</ProjectGuid>
-    <RootNamespace>Engine</RootNamespace>
+    <ProjectGuid>{5fc13060-f929-42d4-aefa-b9f103d2de2f}</ProjectGuid>
+    <RootNamespace>My04FileIO</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -153,6 +142,19 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="Bank.h" />
+    <ClInclude Include="CreditAccount.h" />
+    <ClInclude Include="DonationAccount.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Account.cpp" />
+    <ClCompile Include="Bank.cpp" />
+    <ClCompile Include="CreditAccount.cpp" />
+    <ClCompile Include="DonationAccount.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

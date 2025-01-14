@@ -5,13 +5,13 @@
 #include <iostream>
 Bank::Bank()
 
-    :   fout("customerInfo.txt", std::ios_base::out), // 파일을 append 모드로 열기  
-        fin("customerInfo.txt", std::ios_base::in | std::ios_base::trunc),
-        totalCustomers(0)
+    : fout("customerInfo.txt", std::ios_base::out), // 파일을 append 모드로 열기  
+    fin("customerInfo.txt", std::ios_base::in), // 파일을 append 모드로 열기  
+    totalCustomers(0)
 {
-    if (fin.is_open() && fout.is_open())
+    if (fout.is_open())
     {
-        std::cout << "파일을 불러오지 못했습니다.\n";
+        std::cout << "파일열기 성공\n";
     }
 
 }
@@ -40,13 +40,13 @@ void Bank::CreateAccount(int accountType)
     // 임시로 입력 받을 변수들
     int id, balance;
     char name[100];
-    
+
     // 고객 계좌 입력
     std::cout << "계좌를 개설하겠습니다. 정보를 입력해주세요." << std::endl;
     std::cout << "계좌 : "; std::cin >> id;
     std::cout << "이름 : "; std::cin >> name;
     std::cout << "잔액 : "; std::cin >> balance;
-    
+
     // 고객 계좌 생성
     switch (accountType)
     {
@@ -58,12 +58,31 @@ void Bank::CreateAccount(int accountType)
         account[totalCustomers] = new CreditAccount(id, name, balance, "신용계좌");
         ++totalCustomers;
         break;
-    case 3 : // 기부 계좌
+    case 3: // 기부 계좌
         account[totalCustomers] = new DonationAccount(id, name, balance, "기부계좌");
         ++totalCustomers;
         break;
     default:
         break;
+    }
+}
+
+void Bank::putData()
+{
+    int cnt = 0;
+    while (1)
+    {
+        if (totalCustomers == cnt)
+        {
+            return;
+        }
+        fout << "---------------\n";
+        fout << "고객 이름  :" << account[cnt]->getName() << "\n";
+        fout << "계좌 번호  :  " << account[cnt]->getId() << "\n";
+        fout << "계좌 종류  : " << account[cnt]->getAccountType() << "\n";
+        fout << "총 잔액    : " << account[cnt]->getBalance() << "\n";
+        fout << "---------------\n";
+        ++cnt;
     }
 }
 
@@ -94,11 +113,11 @@ void Bank::Deposit()
     // 입력받기 위해 선언한 변수들
     int depositAmount;              // 입금한 금액
     int depositAccountNumber;       // 입금할 계좌 번호
-    std::cout << "입금 금액 : "; std::cin >> depositAmount; 
+    std::cout << "입금 금액 : "; std::cin >> depositAmount;
     std::cout << "계좌 번호 : "; std::cin >> depositAccountNumber;
-    
+
     // 계좌가 없을 경우 계속 입력 받기
-    while (!(findAccount(depositAccountNumber)==true))
+    while (!(findAccount(depositAccountNumber) == true))
     {
         std::cout << "없는 계좌 번호입니다. 다시 입력해주세요." << std::endl;
         std::cout << "계좌 번호 : "; std::cin >> depositAccountNumber;
@@ -106,7 +125,7 @@ void Bank::Deposit()
 
     // 입금
     account[depositAccountNumber]->deposit(depositAmount);
-    
+
 
 }
 void Bank::WithDraw()
@@ -139,7 +158,7 @@ void Bank::Inquire()
         std::cout << "계좌 : " << account[i]->getId() << std::endl;
         std::cout << "이름 : " << account[i]->getName() << std::endl;
         std::cout << "잔액 : " << account[i]->getBalance() << std::endl;
-        
+
         account[i]->DonationInfo();
         std::cout << std::endl;
     }

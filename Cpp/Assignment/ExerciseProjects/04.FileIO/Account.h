@@ -14,7 +14,7 @@ public:
 	// 복사 대입 연산자.	
 	Account& operator=(const Account& other);
 	// 생성자.
-	Account(const int id, const char* name, const int balance);
+	Account(const int id, const char* name, const int balance, const char* accountType);
 
 	virtual void deposit(int depositAmount);
 
@@ -23,6 +23,7 @@ public:
 	int getId() const { return _id; }
 	char* getName() const { return _name; }
 	int getBalance() const { return _balance; }
+	char* getAccountType() const { return _AccountType; }
 
 	void setId(const int id) { _id = id; }
 	void setName(const char* name);
@@ -35,6 +36,7 @@ protected:
 	int _id;			// 계좌 번호
 	char* _name;	// 이름
 	int _balance;	// 잔액
+	char* _AccountType;
 
 };
 
