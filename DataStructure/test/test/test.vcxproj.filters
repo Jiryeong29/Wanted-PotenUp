@@ -19,4 +19,8 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="자기소개영어.txt" />
+    <Text Include="자기소개.txt" />
+  </ItemGroup>
 </Project>

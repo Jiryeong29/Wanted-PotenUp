@@ -11,13 +11,39 @@
 Engine* Engine::instance = nullptr;
 
 Engine::Engine()
-    : quit(false), mainLevel(nullptr)
+    : quit(false), mainLevel(nullptr), screenSize(40,25)
 {
     // 싱글톤 객체 설정
     instance = this;
 
     // 기본 타겟 프레임 속도 설정
     SetTargetFrameRate(60.0f);
+
+    
+    // 화면 지울 때 사용할 버퍼 초기화.
+    // 1. 버퍼 크기 할당.
+    emtyStringBuffer = new char[(screenSize.x + 1) * screenSize.y+ 1];
+
+    // 2. 값 할당.
+    for (int y = 0; y < screenSize.y; ++y)
+    {
+        for (int x = 0; x < screenSize.x; ++x)
+        {
+            // 인덱스 계산 잘하기.
+            emtyStringBuffer[(y * (screenSize.x + 1)) + x] = ' ';
+        }
+
+        // 각 줄 끝에 개행 문자 추가.
+        emtyStringBuffer[(y * (screenSize.x + 1)) + screenSize.x] = '\n';
+    }
+    // 마지막에 널 문자 추가.
+    emtyStringBuffer[((screenSize.x + 1) * screenSize.y)] = '\0';
+
+    //디버깅.
+#if _DEBUG
+    char buffer[2048];
+    strcpy_s(buffer, 2048, emtyStringBuffer);
+#endif
 }
 
 Engine::~Engine()
@@ -97,7 +123,7 @@ void Engine::Run()
             // 액터 정리 (삭제 요청된 액터들 정리)
             if (mainLevel)
             {
-                mainLevel->DestroyActor();
+                mainLevel->ProcessAddedAndDestroyedActor();
             }
 
             // 프레임 활성화

@@ -1,12 +1,30 @@
+// crt_fgets.c
+// This program uses fgets to display
+// the first line from a file.
+
+#include <stdio.h>
 #include <iostream>
-#include <stdlib.h>
-int RandomRange(int min, int max)
+int main(void)
 {
-	return (rand() % (max - min + 1)) + min;
-}
-int main()
+    FILE* stream = nullptr;
+    wchar_t line[100];
+    if (fopen_s(&stream, "자기소개영어.txt", "r") == 0)
+    {
+        if (fgetws(line, 1, stream) == nullptr)
+            printf("fgets error\n");
+        else
+        {
+            while (true)
+            {
+                wprintf(line);
 
-{
-	std::cout << RandomRange(4, 5) << '\n';
+                if (fgetws(line, 1, stream) == nullptr)
+                {
+                    break;
+                }
 
+            }
+        }
+        fclose(stream);
+    }
 }

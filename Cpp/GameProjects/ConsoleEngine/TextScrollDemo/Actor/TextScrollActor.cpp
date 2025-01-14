@@ -1,12 +1,13 @@
 #include "TextScrollActor.h"
 #include "Engine/Engine.h"
-
+#include "Game/Game.h"
 TextScrollActor::TextScrollActor(const char* message)
 {
 	length = (int)strlen(message);
 
 	string = new char[length + 1];
 	strcpy_s(string, length + 1, message);
+
 
 	Engine::Get().SetCursorType(CursorType::NoCursor);
 }
@@ -18,9 +19,29 @@ TextScrollActor::~TextScrollActor()
 
 void TextScrollActor::Update(float deltatTime)
 {
-	if(Engine::Get().GetKeyDown(VK_ESCAPE))
+	// 좌우 방향키 입력 처리.
+	if (Engine::Get().GetKey(VK_ESCAPE))
 	{
-		Engine::Get().QuitGame();
+		Game::Get().ToggleMenu();
+	}
+
+	if (Engine::Get().GetKey(VK_LEFT))
+	{
+		// 방향 설정.
+		direction = Direction::Left;
+		shouldUpdate = true;
+	}
+		if (Engine::Get().GetKey(VK_RIGHT))
+	{
+		// 방향 설정.
+		direction = Direction::Right;
+		shouldUpdate = true;
+	}
+
+	// 방향키가 안눌렸는지 확인.
+	if (!Engine::Get().GetKey(VK_LEFT) && !Engine::Get().GetKey(VK_RIGHT))
+	{
+		shouldUpdate = false;
 	}
 
 
@@ -32,8 +53,24 @@ void TextScrollActor::Update(float deltatTime)
 	}
 	// 시간이 경과했으면 다음 계산을 위해 초기화
 	elapsedTime = 0.0f;
-	// 화면에 그릴 문자열의 시작 인덱스
-	index = (index + 1) % length;
+
+	if (shouldUpdate)
+	{
+		if (direction == Direction::Left)
+		{
+
+			// 화면에 그릴 문자열의 시작 인덱스 업데이트.
+			index = (index + 1) % length;
+		}
+		else if (direction == Direction::Right)
+		{
+
+			// 화면에 그릴 문자열의 시작 인덱스 업데이트.
+			index = (index - 1 + length) % length;
+		}
+
+	}
+
 }
 
 void TextScrollActor::Draw()
@@ -47,6 +84,7 @@ void TextScrollActor::Draw()
 		temp[ix] = string[tempIndex];
 		tempIndex = (tempIndex + 1) % length;
 	}
+
 	temp[printWidth] = '\0';
 	Log(temp);
 
