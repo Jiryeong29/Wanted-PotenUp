@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-
+#include <Windows.h>
 // dll로 import를 하는데 에러가 
 #if ENGINE_BUILD_DLL
 #define ENGINE_API __declspec(dllexport)
@@ -12,6 +12,22 @@
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+
+
+
+// 색상 열거형
+enum class Color
+{
+	Red = FOREGROUND_RED,
+	Green = FOREGROUND_GREEN,
+	Blue = FOREGROUND_BLUE,
+	white = Red + Green + Blue,
+
+};
+inline void SetColor(Color color)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)color);
+}
 
 // 메모리 삭제 함수.
 template<typename T>
@@ -38,7 +54,12 @@ inline float RandomPercent(float min, float max)
 	float random = (float)(rand() / (float)RAND_MAX);
 	return random * (max - min) + min;
 };
-
+// 메모리 누수 확인할 때 사용하는 함수.
+inline void CheckMemoryLeak()
+{
+	// https://learn.microsoft.com/ko-kr/cpp/c-runtime-library/find-memory-leaks-using-the-crt-library?view=msvc-170
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+}
 // 디버깅 용도.
 #ifdef _DEBUG
 #define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )

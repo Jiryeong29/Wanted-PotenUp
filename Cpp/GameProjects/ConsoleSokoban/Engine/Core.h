@@ -2,31 +2,27 @@
 
 #include <iostream>
 #include <Windows.h>
-// dll로 import를 하는데 에러가 
-#if ENGINE_BUILD_DLL
-#define ENGINE_API __declspec(dllexport)
-#else
-#define ENGINE_API __declspec(dllimport)
-#endif
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
 
-
-
-// 색상 열거형
-enum class Color
+// 색상 열거형.
+enum class Color : unsigned short
 {
 	Red = FOREGROUND_RED,
 	Green = FOREGROUND_GREEN,
 	Blue = FOREGROUND_BLUE,
-	white = Red + Green + Blue,
-
+	White = Red + Green + Blue,
 };
+
+// 콘솔 색상 설정 함수.
 inline void SetColor(Color color)
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)color);
+	SetConsoleTextAttribute(
+		GetStdHandle(STD_OUTPUT_HANDLE), 
+		(int)color
+	);
 }
 
 // 메모리 삭제 함수.
@@ -40,26 +36,37 @@ void SafeDelete(T* pointer)
 	}
 }
 
+// 로그 함수.
+template<typename... T>
+void Log(const char* format, T&&... args)
+{
+	char buffer[1024];
+	snprintf(buffer, 1024, format, args ...);
+	std::cout << buffer;
+}
 
-
+// 랜덤 함수.
 inline int Random(int min, int max)
 {
 	// 차이 구하기.
-	int diff = (max - min) + 1;;
-	return ((diff * rand()) / (RAND_MAX + 1) + min);
+	int diff = (max - min) + 1;
+	return ((diff * rand()) / (RAND_MAX + 1)) + min;
 }
-// min ~ max 사이의 랜덤 값을 반환해주는 함수.
+
+// min~max 사이의 랜덤 값을 반환해주는 함수.
 inline float RandomPercent(float min, float max)
 {
 	float random = (float)(rand() / (float)RAND_MAX);
 	return random * (max - min) + min;
-};
+}
+
 // 메모리 누수 확인할 때 사용하는 함수.
 inline void CheckMemoryLeak()
 {
 	// https://learn.microsoft.com/ko-kr/cpp/c-runtime-library/find-memory-leaks-using-the-crt-library?view=msvc-170
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 }
+
 // 디버깅 용도.
 #ifdef _DEBUG
 #define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
@@ -69,24 +76,34 @@ inline void CheckMemoryLeak()
 #define new new
 #endif
 
-template<typename... T>
-void Log(const char* format, T&&... args)
-{
-	char buffer[255];
-	snprintf(buffer, 255, format, args ...);
-	std::cout << buffer ;
-}
+#if ENGINE_BUILD_DLL
+#define ENGINE_API __declspec(dllexport)
+#else
+#define ENGINE_API __declspec(dllimport)
+#endif
 
 #define VK_LBUTTON        0x01
 #define VK_RBUTTON        0x02
 #define VK_CANCEL         0x03
 #define VK_MBUTTON        0x04    /* NOT contiguous with L & RBUTTON */
 
+/*
+ * 0x07 : reserved
+ */
+
 #define VK_BACK           0x08
 #define VK_TAB            0x09
 
+ /*
+  * 0x0A - 0x0B : reserved
+  */
+
 #define VK_CLEAR          0x0C
 #define VK_RETURN         0x0D
+
+/*
+* 0x0E - 0x0F : unassigned
+*/
 
 #define VK_SHIFT          0x10
 #define VK_CONTROL        0x11
@@ -94,7 +111,22 @@ void Log(const char* format, T&&... args)
 #define VK_PAUSE          0x13
 #define VK_CAPITAL        0x14
 
+#define VK_KANA           0x15
+#define VK_HANGEUL        0x15  /* old name - should be here for compatibility */
+#define VK_HANGUL         0x15
+#define VK_IME_ON         0x16
+#define VK_JUNJA          0x17
+#define VK_FINAL          0x18
+#define VK_HANJA          0x19
+#define VK_KANJI          0x19
+#define VK_IME_OFF        0x1A
+
 #define VK_ESCAPE         0x1B
+
+#define VK_CONVERT        0x1C
+#define VK_NONCONVERT     0x1D
+#define VK_ACCEPT         0x1E
+#define VK_MODECHANGE     0x1F
 
 #define VK_SPACE          0x20
 #define VK_PRIOR          0x21
@@ -105,8 +137,13 @@ void Log(const char* format, T&&... args)
 #define VK_UP             0x26
 #define VK_RIGHT          0x27
 #define VK_DOWN           0x28
+#define VK_SELECT         0x29
+#define VK_PRINT          0x2A
+#define VK_EXECUTE        0x2B
+#define VK_SNAPSHOT       0x2C
 #define VK_INSERT         0x2D
 #define VK_DELETE         0x2E
+#define VK_HELP           0x2F
 
 /*
 * VK_0 - VK_9 are the same as ASCII '0' - '9' (0x30 - 0x39)
@@ -116,6 +153,13 @@ void Log(const char* format, T&&... args)
 
 #define VK_LWIN           0x5B
 #define VK_RWIN           0x5C
+#define VK_APPS           0x5D
+
+/*
+* 0x5E : reserved
+*/
+
+#define VK_SLEEP          0x5F
 
 #define VK_NUMPAD0        0x60
 #define VK_NUMPAD1        0x61
@@ -148,6 +192,10 @@ void Log(const char* format, T&&... args)
 
 #define VK_NUMLOCK        0x90
 #define VK_SCROLL         0x91
+
+/*
+* 0x97 - 0x9F : unassigned
+*/
 
 /*
 * VK_L* & VK_R* - left and right Alt, Ctrl and Shift virtual keys.
