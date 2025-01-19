@@ -61,7 +61,7 @@ void TestLevel::Update(float deltaTime)
     Log("Score: %d", score);
     //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
     //     (int)Color::white);
-    SetColor(Color::white);
+    SetColor(Color::White);
 
 
     // Àû »ý¼º.

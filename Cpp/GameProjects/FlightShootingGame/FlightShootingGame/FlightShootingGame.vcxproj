@@ -180,6 +180,7 @@
     <ClInclude Include="Actor\EnemyBullet.h" />
     <ClInclude Include="Actor\Player.h" />
     <ClInclude Include="Actor\PlayerBullet.h" />
+    <ClInclude Include="Game\firstLevel.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\TestLevel.h" />
   </ItemGroup>

@@ -10,16 +10,17 @@
 
 // 스태틱 변수 초기화
 Engine* Engine::instance = nullptr;
-
+//quit 변수를 false로 설정하여 게임 루프가 종료되지 않도록 한다
+// 게임의 주 레벨을 나타내는 포인터를 nullptr로 초기화한다
 Engine::Engine()
-    : quit(false), mainLevel(nullptr), screenSize(40, 25)
+    : quit(false), mainLevel(nullptr), screenSize(80, 25)
 {
 
-    //랜덤 시드 설정.
+    //랜덤 시드 설정. 게임 실행 시마다 다른 랜덤 값을 생성
     srand((unsigned int)time(nullptr));
 
 
-    // 싱글톤 객체 설정
+    // 싱글톤 객체 설정 engine 객체의 전역 접근
     instance = this;
 
     // 기본 타겟 프레임 속도 설정
@@ -80,15 +81,15 @@ void Engine::Run()
     // 시스템 시계 -> 고해상도 카운터 (10,000,000)
     // 메인보드에 시계가 있음
     LARGE_INTEGER frequency;
-    QueryPerformanceFrequency(&frequency); // 언리얼 및 유니티 사용
+    QueryPerformanceFrequency(&frequency); // 언리얼 및 유니티 사용. 고해상도 타이머의 주파수를 가져옴
 
     // 시작 시간 및 이전 시간을 위한 변수
     LARGE_INTEGER time;
-    QueryPerformanceCounter(&time); // 언리얼 및 유니티 사용
+    QueryPerformanceCounter(&time); // 언리얼 및 유니티 사용.  현재 시점의 타이머 값을 가져옴
 
     // __int64 == int64_t
-    int64_t currentTime = time.QuadPart;
-    int64_t previousTime = currentTime;
+    int64_t currentTime = time.QuadPart; // *time.QuadPart 현재 시점의 타이머 값을 가져옴
+    int64_t previousTime = currentTime;// currentTime과 previousTime에 저장하여 이후 프레임 간 시간 계산에 사용한
 
     //// 프레임 제한
     //float targetFrameRate = 60.0f;
@@ -109,7 +110,6 @@ void Engine::Run()
         //time = timeGetTime();
         QueryPerformanceCounter(&time);
         currentTime = time.QuadPart;
-
         // 프레임 시간 계산
         float deltaTime = static_cast<float>(currentTime - previousTime) / static_cast<float>(frequency.QuadPart);
 
@@ -218,9 +218,14 @@ void Engine::SetCursorPosition(const Vector2& position)
 
 void Engine::SetCursorPosition(int x, int y)
 {
+    //표준 출력(콘솔)에 대한 핸들을 가져옵니다.
+    //**STD_OUTPUT_HANDLE**은 표준 출력 스트림(콘솔)을 나타냅니다.
+    // static으로 선언되어, 핸들을 함수 호출 시 매번 새로 생성하지 않고 한 번만 가져오게 합니다.
     static HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord = { static_cast<short>(x), static_cast<short>(y) };
     SetConsoleCursorPosition(handle, coord);
+    //첫 번째 인자는 콘솔 출력 핸들(handle).
+    //두 번째 인자는 커서 위치(coord).
 }
 
 void Engine::SetTargetFrameRate(float targetFrameRate)
@@ -258,6 +263,7 @@ Engine& Engine::Get()
 
 void Engine::ProcessInput()
 {
+    //keyState 배열의 i번째 요소에 해당 키가 눌려 있는지를 기록합니다.
     for (int i = 0; i < 255; ++i)
     {
         keyState[i].isKeyDown = (GetAsyncKeyState(i) & 0x8000) ? true : false;

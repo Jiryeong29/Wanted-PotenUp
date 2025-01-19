@@ -21,8 +21,7 @@ enum class Color
 	Red = FOREGROUND_RED,
 	Green = FOREGROUND_GREEN,
 	Blue = FOREGROUND_BLUE,
-	white = Red + Green + Blue,
-
+	White = Red + Green + Blue,
 };
 inline void SetColor(Color color)
 {

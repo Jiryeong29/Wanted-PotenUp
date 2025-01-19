@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Engine/Engine.h"
 #include "Level/GameLevel.h"
+#include "Game/Game.h"
 Player::Player(const Vector2& position, GameLevel* level)
 	: DrawableActor("P"), refLevel(level)
 {
@@ -14,6 +15,11 @@ Player::Player(const Vector2& position, GameLevel* level)
 void Player::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
+    if (Engine::Get().GetKeyDown(VK_ESCAPE))
+    {
+        //Engine::Get().QuitGame();
+        Game::Get().ToggleMenu();
+    }
     // »óÇÏÁÂ¿ì.
     if (Engine::Get().GetKeyDown(VK_LEFT))
     {
