@@ -1,0 +1,21 @@
+A게임 프로그래밍 실습(콘솔 엔진)
+- 게임 루프(GameLoop)
+- 프레임(Frame)
+- 프레임 시간(DeltaTime/DeltaSeconds)
+- DLL(Dynamic Linking Linrary)
+ - __des/
+
+
+콘솔 게임 엔진
+- Engine(GameEngine)
+	- GameLoop(
+	- Singleton(싱글톤).
+ 	- 프로그램이 시작하고 끝날 때까지의 객체
+        - 오로지 1개만 유지
+- Actor/ Entity/ GameObject(물체)
+- Level/Scene(레벨)
+- RTTI(RunTime Type Information)
+	- Dynamic_cast
+
+- PCH(PreCompiledHeader_
+- DLL(Dynamic Linking Library)
