@@ -1,7 +1,0 @@
-디렉토리 설정
-
-$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\
-
-$(SolutionDir)Intermediate\$(Platform)\$(Configuration)\$(ProjectName)\
-
-winmm.lib;
